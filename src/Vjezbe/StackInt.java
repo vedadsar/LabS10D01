@@ -4,33 +4,49 @@ public class StackInt {
 	private IntNode head;
 	private IntNode min;
 	
+		/**
+		 * Method which adds new Node into our stack. In this method I'll be checking 
+		 * for min values of our stack. I'll be connecting min values so once my min
+		 * value get popped, my next min value will be correct.
+		 * @param value min value in stack.
+		 */
 		public void push(int value){
 			IntNode p = new IntNode(value);
-			if(head == null)
+		
+			if(head == null)						//Case 1, empty stack
 				min = head =p;
 						
-			else if (p.getValue() <= min.getValue()){
+			else if (p.getValue() <= min.getValue()){  //Case 2, Once we found new min.
 					
-				p.setPrevMin(min);
-					min = p;
-					head = p;
-			}else{			
+				p.setPrevMin(min);					// Setting prev min value of our new min.
+					min = p;						// moving min to new min	
+					head = p;								
+			}else{									//Case 3, no min found. Normal push.				
 				p.setNext(head);
 				head = p;
 			}
 		}
 		
-		
+		/**
+		 * Method returns min value in our stack. How we got to min array described 
+		 * at push/pop methods.
+		 * @return
+		 */
 		public int getMin(){
 			return min.getValue();
 		}
 		
+		/**
+		 * Pop method which removes first node in our stack. It also check if our node
+		 * is min, so it can remove min.
+		 * @return
+		 */
 		public int pop(){
 			if(head == null)
 				throw new IllegalStateException("First node is null");
 			int result = head.getValue();
 			
-			if(head.getValue() == min.getValue())
+			if(head.getValue() == min.getValue())		//Checking if our head is min.
 				min = min.getPrevMin();			
 			
 			head = head.getNext();

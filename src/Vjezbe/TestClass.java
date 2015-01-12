@@ -8,8 +8,7 @@ public class TestClass {
 		s.push(5);
 		s.push(120);
 		s.push(1);
-		
-		//s.pop();			
+		s.pop();			
 		System.out.println(s.getMin());
 	}
 }
