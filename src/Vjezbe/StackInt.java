@@ -16,20 +16,20 @@ public class StackInt {
 			if(head == null){					//Case 1, empty stack
 				min =p;
 				head = p;
-				return;
+				
 			}
-			if (p.getValue() <= min.getValue()){  //Case 2, Once we found new min.
+			else if (p.getValue() <= min.getValue()){  //Case 2, Once we found new min.
 					
 				p.setPrevMin(min);					// Setting prev min value of our new min.
 					min = p;						// moving min to new min	
 					p.setNext(head);
 					head = p;	
-					return;
-			}									//Case 3, no min found. Normal push.				
+					
+			}else{									//Case 3, no min found. Normal push.				
 				
-			p.setNext(head);				
-			head = p;
-			
+				p.setNext(head);				
+				head = p;
+			}
 		}
 		
 		/**
