@@ -2,17 +2,37 @@ package Vjezbe;
 
 public class StackInt {
 	private IntNode head;
+	private IntNode min;
 	
 		public void push(int value){
 			IntNode p = new IntNode(value);
-			p.setNext(head);
-			head = p;
+			if(head == null)
+				min = head =p;
+						
+			else if (p.getValue() <= min.getValue()){
+					
+				p.setPrevMin(min);
+					min = p;
+					head = p;
+			}else{			
+				p.setNext(head);
+				head = p;
+			}
+		}
+		
+		
+		public int getMin(){
+			return min.getValue();
 		}
 		
 		public int pop(){
 			if(head == null)
 				throw new IllegalStateException("First node is null");
 			int result = head.getValue();
+			
+			if(head.getValue() == min.getValue())
+				min = min.getPrevMin();			
+			
 			head = head.getNext();
 			return result;
 		}
@@ -80,11 +100,21 @@ public class StackInt {
 	public static  class IntNode{
 		private int value;
 		private IntNode next;
+		private IntNode prevMin;
 		
+			
 		public IntNode(int value){
 			this.value = value;
 		}
 		
+		public IntNode getPrevMin() {
+			return prevMin;
+		}
+
+		public void setPrevMin(IntNode prevMin) {
+			this.prevMin = prevMin;
+		}
+
 		public int getValue(){
 			return value;
 		}
