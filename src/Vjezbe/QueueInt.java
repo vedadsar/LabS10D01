@@ -22,6 +22,12 @@ public class QueueInt {
 	public int pop(){
 		if(head == null)
 			throw new ArrayIndexOutOfBoundsException("nesto");
+		if(head == tail){
+			int result =head.getValue();
+			head = null;
+			tail = null;
+			return result;
+		}
 		int result =head.getValue();
 		head = head.getNext();
 		return result;
