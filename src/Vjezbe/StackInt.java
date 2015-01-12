@@ -13,18 +13,23 @@ public class StackInt {
 		public void push(int value){
 			IntNode p = new IntNode(value);
 		
-			if(head == null)						//Case 1, empty stack
-				min = head =p;
-						
-			else if (p.getValue() <= min.getValue()){  //Case 2, Once we found new min.
+			if(head == null){					//Case 1, empty stack
+				min =p;
+				head = p;
+				return;
+			}
+			if (p.getValue() <= min.getValue()){  //Case 2, Once we found new min.
 					
 				p.setPrevMin(min);					// Setting prev min value of our new min.
 					min = p;						// moving min to new min	
-					head = p;								
-			}else{									//Case 3, no min found. Normal push.				
-				p.setNext(head);
-				head = p;
-			}
+					p.setNext(head);
+					head = p;	
+					return;
+			}									//Case 3, no min found. Normal push.				
+				
+			p.setNext(head);				
+			head = p;
+			
 		}
 		
 		/**
@@ -44,9 +49,10 @@ public class StackInt {
 		public int pop(){
 			if(head == null)
 				throw new IllegalStateException("First node is null");
+			
 			int result = head.getValue();
 			
-			if(head.getValue() == min.getValue())		//Checking if our head is min.
+			if(head == min)		//Checking if our head is min.
 				min = min.getPrevMin();			
 			
 			head = head.getNext();
